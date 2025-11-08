@@ -107,6 +107,27 @@
             "description": "OK"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Clients"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Maintenances": {
@@ -150,6 +171,90 @@
         }
       }
     },
+    "/api/Maintenances/{id}": {
+      "get": {
+        "tags": [
+          "Maintenances"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Maintenances"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maintenance"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maintenance"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Maintenance"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Maintenances"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Maintenances/vehicle/{vehicleId}": {
       "get": {
         "tags": [
@@ -173,48 +278,6 @@
         }
       }
     },
-    "/api/Maintenances/{id}": {
-      "put": {
-        "tags": [
-          "Maintenances"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Maintenance"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Maintenance"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Maintenance"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Vehicles": {
       "get": {
         "tags": [
@@ -222,7 +285,33 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VehicleDto"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -234,36 +323,53 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/Vehicles/{vehicleId}/maintenances": {
+    "/api/Vehicles/{id}": {
       "get": {
         "tags": [
           "Vehicles"
         ],
         "parameters": [
           {
-            "name": "vehicleId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -274,12 +380,27 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDto"
+                }
+              }
+            }
           }
         }
-      }
-    },
-    "/api/Vehicles/{id}": {
+      },
       "put": {
         "tags": [
           "Vehicles"
@@ -299,21 +420,42 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Maintenance"
+                "$ref": "#/components/schemas/VehicleDto"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vehicles"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -432,13 +574,21 @@
         "format": "int32"
       },
       "Maintenance": {
+        "required": [
+          "cost",
+          "description",
+          "maintenanceType",
+          "mileageAtService",
+          "serviceDate",
+          "vehicleId"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "maintenancetype": {
+          "maintenanceType": {
             "$ref": "#/components/schemas/MaintenanceType"
           },
           "serviceDate": {
@@ -447,11 +597,12 @@
           },
           "nextServiceDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "description": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "partsReplaced": {
             "type": "string",
@@ -475,6 +626,14 @@
           },
           "vehicle": {
             "$ref": "#/components/schemas/Vehicle"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -500,6 +659,108 @@
         "format": "int32"
       },
       "Vehicle": {
+        "required": [
+          "brand",
+          "model",
+          "serialNumber",
+          "year"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "brand": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "model": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "year": {
+            "maximum": 2100,
+            "minimum": 1900,
+            "type": "integer",
+            "format": "int32"
+          },
+          "serialNumber": {
+            "maxLength": 17,
+            "minLength": 17,
+            "type": "string"
+          },
+          "licensePlate": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          },
+          "color": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/VehicleStatus"
+          },
+          "location": {
+            "maxLength": 200,
+            "type": "string",
+            "nullable": true
+          },
+          "purchasePrice": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "salePrice": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "mileage": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "fuelType": {
+            "$ref": "#/components/schemas/FuelType"
+          },
+          "transmission": {
+            "$ref": "#/components/schemas/TransmissionType"
+          },
+          "imageUrl": {
+            "maxLength": 500,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "notes": {
+            "maxLength": 1000,
+            "type": "string",
+            "nullable": true
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "owner": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "maintenanceRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Maintenance"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VehicleDto": {
         "type": "object",
         "properties": {
           "id": {
@@ -539,20 +800,17 @@
           },
           "purchasePrice": {
             "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "double"
           },
           "salePrice": {
             "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "double"
           },
           "mileage": {
             "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "double"
           },
-          "fueltype": {
+          "fuelType": {
             "$ref": "#/components/schemas/FuelType"
           },
           "transmission": {
@@ -568,16 +826,11 @@
           },
           "ownerId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
-          "owner": {
-            "$ref": "#/components/schemas/Client"
-          },
-          "maintenanceRecords": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Maintenance"
-            },
+          "ownerName": {
+            "type": "string",
             "nullable": true
           }
         },

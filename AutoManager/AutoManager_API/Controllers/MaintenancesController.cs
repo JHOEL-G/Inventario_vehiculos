@@ -22,6 +22,19 @@ namespace AutoManager.AutoManager_API.Controllers
             return Ok(maintenances);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var maintenance = await _maintenanceService.GetMaintenanceByIdAsync(id);
+
+            if (maintenance == null)
+            {
+                return NotFound(new { message = $"Maintenance with id {id} not found" });
+            }
+
+            return Ok(maintenance);
+        }
+
         [HttpGet("vehicle/{vehicleId}")]
         public async Task<IActionResult> GetByVehicle(int vehicleId)
         {
@@ -32,16 +45,52 @@ namespace AutoManager.AutoManager_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Maintenance maintenance)
         {
-            await _maintenanceService.AddMaintenanceAsync(maintenance);
-            return CreatedAtAction(nameof(GetAll), new { id = maintenance.Id }, maintenance);
+            try
+            {
+                var created = await _maintenanceService.AddMaintenanceAsync(maintenance);
+                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Maintenance maintenance)
         {
-            if (id != maintenance.Id) return BadRequest();
-            await _maintenanceService.UpdateMaintenanceAsync(maintenance);
-            return NoContent();
+            if (id != maintenance.Id)
+            {
+                return BadRequest(new { message = "ID mismatch" });
+            }
+
+            try
+            {
+                var updated = await _maintenanceService.UpdateMaintenanceAsync(maintenance);
+                return Ok(updated);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _maintenanceService.DeleteMaintenanceAsync(id);
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

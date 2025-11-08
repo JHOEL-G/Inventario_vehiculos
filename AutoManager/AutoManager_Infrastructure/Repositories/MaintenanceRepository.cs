@@ -14,7 +14,6 @@ namespace AutoManager.AutoManager_Infrastructure.Repositories
             _context = context;
         }
 
-
         public async Task AddAsync(Maintenance maintenance)
         {
             _context.MaintenanceRecords.Add(maintenance);
@@ -57,6 +56,16 @@ namespace AutoManager.AutoManager_Infrastructure.Repositories
 
         public async Task UpdateAsync(Maintenance maintenance)
         {
+            // Detach cualquier entidad rastreada con el mismo ID
+            var tracked = _context.ChangeTracker.Entries<Maintenance>()
+                .FirstOrDefault(e => e.Entity.Id == maintenance.Id);
+
+            if (tracked != null)
+            {
+                tracked.State = EntityState.Detached;
+            }
+
+            // Ahora sí actualiza
             _context.MaintenanceRecords.Update(maintenance);
             await _context.SaveChangesAsync();
         }

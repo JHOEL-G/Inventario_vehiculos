@@ -3,6 +3,7 @@ using System;
 using AutoManager.AutoManager_Infrastructure.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251107231007_CreateVehiclesTable")]
+    partial class CreateVehiclesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,11 +74,7 @@ namespace AutoManager.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("MaintenanceType")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Mechanic")
                         .HasColumnType("text");
@@ -83,24 +82,19 @@ namespace AutoManager.Migrations
                     b.Property<double>("MileageAtService")
                         .HasColumnType("double precision");
 
-                    b.Property<DateTime?>("NextServiceDate")
+                    b.Property<DateTime>("NextServiceDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PartsReplaced")
                         .HasColumnType("text");
 
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("maintenancetype")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

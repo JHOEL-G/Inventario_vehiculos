@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\fullstack\\AutoManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_api\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_api\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_application\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_application\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_application\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_application\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_domain\\entidades\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_domain\\entidades\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_infrastructure\\repositories\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_infrastructure\\repositories\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,27 +30,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClientDto.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-08T06:42:18.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClientService.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-08T06:40:39.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClientRepository.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAmwD0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-08T06:40:15.005Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MaintenancesController.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\MaintenancesController.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_API\\Controllers\\MaintenancesController.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\MaintenancesController.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_API\\Controllers\\MaintenancesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA4AAAAAAAAAA==",
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAcwFQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T02:13:57.348Z",
+              "WhenOpened": "2025-11-08T06:35:37.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Client.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAqwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-08T06:34:08.443Z",
               "EditorCaption": ""
             }
           ]

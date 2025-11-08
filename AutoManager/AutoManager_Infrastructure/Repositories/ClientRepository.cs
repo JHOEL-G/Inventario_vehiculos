@@ -28,21 +28,33 @@ namespace AutoManager.AutoManager_Infrastructure.Repositories
                 _context.Clients.Remove(client);
                 await _context.SaveChangesAsync();
             }
-
         }
 
         public async Task<IEnumerable<Client>> GetAllAsync()
         {
-            return await _context.Clients.Include(c => c.Vehicles).ToListAsync();
+            return await _context.Clients
+                .Include(c => c.Vehicles)
+                .ToListAsync();
         }
 
         public async Task<Client> GetByIdAsync(int id)
         {
-            return await _context.Clients.Include(c => c.Vehicles).FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Clients
+                .Include(c => c.Vehicles)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task UpdateAsync(Client client)
         {
+            // Detach cualquier entidad rastreada con el mismo ID
+            var tracked = _context.ChangeTracker.Entries<Client>()
+                .FirstOrDefault(e => e.Entity.Id == client.Id);
+
+            if (tracked != null)
+            {
+                tracked.State = EntityState.Detached;
+            }
+
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
         }

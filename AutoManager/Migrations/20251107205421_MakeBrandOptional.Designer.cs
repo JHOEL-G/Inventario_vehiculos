@@ -3,6 +3,7 @@ using System;
 using AutoManager.AutoManager_Infrastructure.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251107205421_MakeBrandOptional")]
+    partial class MakeBrandOptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,11 +74,7 @@ namespace AutoManager.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("MaintenanceType")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Mechanic")
                         .HasColumnType("text");
@@ -83,24 +82,19 @@ namespace AutoManager.Migrations
                     b.Property<double>("MileageAtService")
                         .HasColumnType("double precision");
 
-                    b.Property<DateTime?>("NextServiceDate")
+                    b.Property<DateTime>("NextServiceDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PartsReplaced")
                         .HasColumnType("text");
 
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("maintenancetype")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -120,53 +114,43 @@ namespace AutoManager.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Color")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
-                    b.Property<int>("FuelType")
+                    b.Property<int>("Fueltype")
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LicensePlate")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Location")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
-                    b.Property<double>("Mileage")
+                    b.Property<double?>("Mileage")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Notes")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("PurchasePrice")
+                    b.Property<decimal?>("PurchasePrice")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("SalePrice")
+                    b.Property<decimal?>("SalePrice")
                         .HasColumnType("numeric");
 
                     b.Property<string>("SerialNumber")
-                        .IsRequired()
-                        .HasMaxLength(17)
-                        .HasColumnType("character varying(17)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -203,7 +187,8 @@ namespace AutoManager.Migrations
                     b.HasOne("AutoManager.AutoManager_Domain.Entidades.Client", "Owner")
                         .WithMany("Vehicles")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });

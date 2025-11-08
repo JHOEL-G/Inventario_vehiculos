@@ -1,4 +1,5 @@
-﻿using AutoManager.AutoManager_Application.Services;
+﻿using AutoManager.AutoManager_Application.DTOs;
+using AutoManager.AutoManager_Application.Services;
 using AutoManager.AutoManager_Domain.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,41 +9,147 @@ namespace AutoManager.AutoManager_API.Controllers
     [Route("api/[controller]")]
     public class VehiclesController : ControllerBase
     {
-        private readonly MaintenanceService _maintenanceService;
+        private readonly VehicleService _vehicleService;
+        private readonly ILogger<VehiclesController> _logger;
 
-        public VehiclesController(MaintenanceService maintenanceService)
+        public VehiclesController(VehicleService vehicleService, ILogger<VehiclesController> logger)
         {
-            _maintenanceService = maintenanceService;
+            _vehicleService = vehicleService ?? throw new ArgumentNullException(nameof(vehicleService));
+            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<VehicleDto>>> GetAll()
         {
-            var maintenances = await _maintenanceService.GetAllMaintenancesAsync();
-            return Ok(maintenances);
+            try
+            {
+                var vehicles = await _vehicleService.GetAllVehiclesAsync();
+                return Ok(vehicles);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener vehículos");
+                return StatusCode(500, new { message = "Error interno al listar vehículos." });
+            }
         }
 
-        [HttpGet("{vehicleId}/maintenances")]
-        public async Task<IActionResult> GetByVehicle(int vehicleId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VehicleDto>> GetById(int id)
         {
-            var maintenances = await _maintenanceService.GetMaintenancesByVehicleAsync(vehicleId);
-            return Ok(maintenances);
+            if (id <= 0) return BadRequest(new { message = "ID inválido." });
+
+            var vehicle = await _vehicleService.GetVehicleByIdAsync(id);
+            if (vehicle == null) return NotFound(new { message = "Vehículo no encontrado." });
+            return Ok(vehicle);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Maintenance maintenance)
+        public async Task<ActionResult<VehicleDto>> Create([FromBody] VehicleDto dto)
         {
-            await _maintenanceService.AddMaintenanceAsync(maintenance);
-            return CreatedAtAction(nameof(GetAll), new { id = maintenance.Id }, maintenance);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                // Mapear DTO a entidad
+                var vehicle = new Vehicle
+                {
+                    Brand = dto.Brand,
+                    Model = dto.Model,
+                    Year = dto.Year,
+                    SerialNumber = dto.SerialNumber,
+                    LicensePlate = dto.LicensePlate,
+                    Color = dto.Color,
+                    Status = dto.Status,
+                    Location = dto.Location,
+                    PurchasePrice = dto.PurchasePrice,
+                    SalePrice = dto.SalePrice,
+                    Mileage = dto.Mileage,
+                    FuelType = dto.FuelType,
+                    Transmission = dto.Transmission,
+                    ImageUrl = dto.ImageUrl,
+                    Notes = dto.Notes,
+                    OwnerId = dto.OwnerId
+                };
+
+                var createdDto = await _vehicleService.AddVehicleAsync(vehicle);
+                return CreatedAtAction(nameof(GetById), new { id = createdDto.Id }, createdDto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Duplicado al crear vehículo: {SerialNumber}", dto.SerialNumber);
+                return Conflict(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear vehículo");
+                return StatusCode(500, new { message = "Error interno al crear vehículo." });
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Maintenance maintenance)
+        public async Task<IActionResult> Update(int id, [FromBody] VehicleDto dto)
         {
-            if (id != maintenance.Id) return BadRequest();
-            
-            await _maintenanceService.UpdateMaintenanceAsync(maintenance);
-            return NoContent();
+            if (id != dto.Id) return BadRequest(new { message = "ID mismatch." });
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                // Mapear DTO a entidad
+                var vehicle = new Vehicle
+                {
+                    Id = dto.Id,
+                    Brand = dto.Brand,
+                    Model = dto.Model,
+                    Year = dto.Year,
+                    SerialNumber = dto.SerialNumber,
+                    LicensePlate = dto.LicensePlate,
+                    Color = dto.Color,
+                    Status = dto.Status,
+                    Location = dto.Location,
+                    PurchasePrice = dto.PurchasePrice,
+                    SalePrice = dto.SalePrice,
+                    Mileage = dto.Mileage,
+                    FuelType = dto.FuelType,
+                    Transmission = dto.Transmission,
+                    ImageUrl = dto.ImageUrl,
+                    Notes = dto.Notes,
+                    OwnerId = dto.OwnerId
+                };
+
+                var updatedDto = await _vehicleService.UpdateVehicleAsync(vehicle);
+                return Ok(updatedDto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Error al actualizar vehículo {Id}", id);
+                return Conflict(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al actualizar vehículo {Id}", id);
+                return StatusCode(500, new { message = "Error interno al actualizar." });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id <= 0) return BadRequest(new { message = "ID inválido." });
+            try
+            {
+                await _vehicleService.DeleteVehicleAsync(id);
+                return Ok(new { message = $"Vehículo {id} eliminado exitosamente." });  // <- Mueve aquí: 200 con body
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Vehículo no encontrado al eliminar {Id}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar vehículo {Id}", id);
+                return StatusCode(500, new { message = "Error interno al eliminar." });
+            }
         }
     }
 }
