@@ -283,6 +283,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AutoManager.AutoManager_API.Controllers.VehiclesController",
+    "Method": "GetBrands",
+    "RelativePath": "api/Vehicles/brands",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoManager.AutoManager_API.Controllers.VehiclesController",
+    "Method": "GetModelsByBrand",
+    "RelativePath": "api/Vehicles/brands/{brandId}/models",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoManager.AutoManager_API.Controllers.VehiclesController",
+    "Method": "UploadImage",
+    "RelativePath": "api/Vehicles/upload-image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AutoManager.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

@@ -96,7 +96,7 @@ namespace AutoManager.AutoManager_Application.Services
             {
                 Id = m.Id,
                 VehicleSerialNumber = m.Vehicle?.SerialNumber,
-                VehicleBrand = m.Vehicle?.Brand,
+                VehicleBrand = m.Vehicle?.Brand?.Name,  
                 MaintenanceType = m.MaintenanceType.ToString(),
                 ServiceDate = m.ServiceDate,
                 NextServiceDate = m.NextServiceDate,

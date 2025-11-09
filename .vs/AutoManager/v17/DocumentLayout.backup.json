@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\fullstack\\AutoManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_domain\\entidades\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_domain\\entidades\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_application\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_application\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\fullstack\\AutoManager\\AutoManager\\Migrations\\20251109050144_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AutoManager\\Migrations\\20251109050144_Initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_application\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_application\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_application\\services\\vehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_application\\services\\vehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_domain\\entidades\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_domain\\entidades\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_infrastructure\\repositories\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_infrastructure\\repositories\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|c:\\fullstack\\automanager\\automanager\\automanager_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{716DD601-532A-440D-B7F4-00B6E2D2A6D8}|AutoManager\\AutoManager.csproj|solutionrelative:automanager\\automanager_api\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,67 +38,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ClientDto.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_Application\\DTOs\\ClientDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T06:42:18.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ClientService.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_Application\\Services\\ClientService.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAowB4AAAAJAAAAAAAAAA==",
+              "Title": "20251109050144_Initial.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\Migrations\\20251109050144_Initial.cs",
+              "RelativeDocumentMoniker": "AutoManager\\Migrations\\20251109050144_Initial.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\Migrations\\20251109050144_Initial.cs",
+              "RelativeToolTip": "AutoManager\\Migrations\\20251109050144_Initial.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T06:40:39.213Z",
+              "WhenOpened": "2025-11-09T05:01:45.049Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ClientRepository.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_Infrastructure\\Repositories\\ClientRepository.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAmwD0AAAABAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "VehicleService.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\VehicleService.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Application\\Services\\VehicleService.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Application\\Services\\VehicleService.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Application\\Services\\VehicleService.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAA0wLMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T06:40:15.005Z",
+              "WhenOpened": "2025-11-09T04:46:00.208Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ClientsController.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_API\\Controllers\\ClientsController.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAcwFQAAAABAAAAAAAAAA==",
+              "Title": "Vehicle.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Vehicle.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Domain\\Entidades\\Vehicle.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Vehicle.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_Domain\\Entidades\\Vehicle.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAuwFgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T06:35:37.293Z",
+              "WhenOpened": "2025-11-09T04:43:42.641Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
-              "RelativeDocumentMoniker": "AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
-              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
-              "RelativeToolTip": "AutoManager\\AutoManager_Domain\\Entidades\\Client.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAqwBoAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\Program.cs",
+              "RelativeDocumentMoniker": "AutoManager\\Program.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\Program.cs",
+              "RelativeToolTip": "AutoManager\\Program.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-08T06:34:08.443Z",
+              "WhenOpened": "2025-11-09T04:39:09.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VehiclesController.cs",
+              "DocumentMoniker": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\VehiclesController.cs",
+              "RelativeDocumentMoniker": "AutoManager\\AutoManager_API\\Controllers\\VehiclesController.cs",
+              "ToolTip": "C:\\fullstack\\AutoManager\\AutoManager\\AutoManager_API\\Controllers\\VehiclesController.cs",
+              "RelativeToolTip": "AutoManager\\AutoManager_API\\Controllers\\VehiclesController.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAmwK4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T04:34:39.746Z",
               "EditorCaption": ""
             }
           ]

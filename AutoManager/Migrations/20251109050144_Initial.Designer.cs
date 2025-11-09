@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251107231007_CreateVehiclesTable")]
-    partial class CreateVehiclesTable
+    [Migration("20251109050144_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,24 @@ namespace AutoManager.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
 
             modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Client", b =>
                 {
@@ -74,7 +92,11 @@ namespace AutoManager.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("MaintenanceType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Mechanic")
                         .HasColumnType("text");
@@ -82,19 +104,24 @@ namespace AutoManager.Migrations
                     b.Property<double>("MileageAtService")
                         .HasColumnType("double precision");
 
-                    b.Property<DateTime>("NextServiceDate")
+                    b.Property<DateTime?>("NextServiceDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PartsReplaced")
                         .HasColumnType("text");
 
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("ServiceDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("maintenancetype")
+                    b.Property<int>("VehicleId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -102,6 +129,29 @@ namespace AutoManager.Migrations
                     b.HasIndex("VehicleId");
 
                     b.ToTable("MaintenanceRecords");
+                });
+
+            modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Model", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Vehicle", b =>
@@ -112,10 +162,8 @@ namespace AutoManager.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Color")
                         .HasMaxLength(50)
@@ -125,8 +173,7 @@ namespace AutoManager.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LicensePlate")
                         .HasMaxLength(20)
@@ -139,10 +186,8 @@ namespace AutoManager.Migrations
                     b.Property<double>("Mileage")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("ModelId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(1000)
@@ -173,6 +218,10 @@ namespace AutoManager.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("ModelId");
+
                     b.HasIndex("OwnerId");
 
                     b.HasIndex("SerialNumber")
@@ -192,14 +241,46 @@ namespace AutoManager.Migrations
                     b.Navigation("Vehicle");
                 });
 
+            modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Model", b =>
+                {
+                    b.HasOne("AutoManager.AutoManager_Domain.Entidades.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+                });
+
             modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Vehicle", b =>
                 {
+                    b.HasOne("AutoManager.AutoManager_Domain.Entidades.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AutoManager.AutoManager_Domain.Entidades.Model", "Model")
+                        .WithMany()
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AutoManager.AutoManager_Domain.Entidades.Client", "Owner")
                         .WithMany("Vehicles")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.Navigation("Brand");
+
+                    b.Navigation("Model");
+
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Brand", b =>
+                {
+                    b.Navigation("Models");
                 });
 
             modelBuilder.Entity("AutoManager.AutoManager_Domain.Entidades.Client", b =>

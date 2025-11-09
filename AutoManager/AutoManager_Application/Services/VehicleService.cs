@@ -1,127 +1,179 @@
 ﻿using AutoManager.AutoManager_Application.DTOs;
 using AutoManager.AutoManager_Domain.Entidades;
 using AutoManager.AutoManager_Domain.Interfaces;
+using AutoManager.AutoManager_Infrastructure.Config;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace AutoManager.AutoManager_Application.Services
 {
     public class VehicleService
     {
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger<VehicleService> _logger;
 
-        public VehicleService(IVehicleRepository vehicleRepository)
+        public VehicleService(
+            IVehicleRepository vehicleRepository,
+            ApplicationDbContext context,
+            ILogger<VehicleService> logger)
         {
             _vehicleRepository = vehicleRepository;
+            _context = context;
+            _logger = logger;
         }
 
-        // Obtener todos los vehículos
         public async Task<IEnumerable<VehicleDto>> GetAllVehiclesAsync()
         {
             var vehicles = await _vehicleRepository.GetAllAsync();
             return vehicles.Select(MapToDto);
         }
 
-        // Obtener vehículo por Id
         public async Task<VehicleDto?> GetVehicleByIdAsync(int id)
         {
             var vehicle = await _vehicleRepository.GetByIdAsync(id);
             return vehicle == null ? null : MapToDto(vehicle);
         }
 
-        // Agregar vehículo
-        public async Task<VehicleDto> AddVehicleAsync(Vehicle vehicle)
+        public async Task<VehicleDto> AddVehicleAsync(VehicleDto dto)
         {
-            // Validar que no exista otro vehículo con el mismo SerialNumber
-            var existing = await _vehicleRepository.GetBySerialNumberAsync(vehicle.SerialNumber);
-            if (existing != null)
+            try
             {
-                throw new InvalidOperationException($"Ya existe un vehículo con el número de serie {vehicle.SerialNumber}");
-            }
+                var existing = await _vehicleRepository.GetBySerialNumberAsync(dto.SerialNumber);
+                if (existing != null)
+                    throw new InvalidOperationException($"Ya existe un vehículo con el número de serie {dto.SerialNumber}");
 
-            await _vehicleRepository.AddAsync(vehicle);
-            return MapToDto(vehicle);
+                _logger.LogInformation("Guardando vehículo con imagen referenciada por URL.");
+
+                var vehicle = MapToEntity(dto);
+                var created = await _vehicleRepository.AddAsync(vehicle);
+
+                return MapToDto(created);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear vehículo");
+                throw;
+            }
         }
 
-        // Actualizar vehículo
-        // Actualizar vehículo
-        public async Task<VehicleDto> UpdateVehicleAsync(Vehicle inputVehicle)  // Renombré el parámetro para claridad
+        public async Task<VehicleDto> UpdateVehicleAsync(VehicleDto dto)
         {
-            // 1. Carga la entidad EXISTENTE (se trackea automáticamente)
-            var existingVehicle = await _vehicleRepository.GetByIdAsync(inputVehicle.Id);
-            if (existingVehicle == null)
+            try
             {
-                throw new InvalidOperationException($"No se encontró el vehículo con ID {inputVehicle.Id}");
-            }
+                
+                var existingVehicle = await _vehicleRepository.GetByIdAsync(dto.Id);
+                if (existingVehicle == null)
+                    throw new KeyNotFoundException($"Vehículo con ID {dto.Id} no encontrado");
 
-            // 2. Validación de SerialNumber (usa AsNoTracking en el repo si puedes, para optimizar)
-            var duplicate = await _vehicleRepository.GetBySerialNumberAsync(inputVehicle.SerialNumber);
-            if (duplicate != null && duplicate.Id != inputVehicle.Id)
+                var duplicate = await _vehicleRepository.GetBySerialNumberAsync(dto.SerialNumber);
+                if (duplicate != null && duplicate.Id != dto.Id)
+                    throw new InvalidOperationException($"Ya existe otro vehículo con el número de serie {dto.SerialNumber}");
+
+                _logger.LogInformation("Actualizando vehículo.");
+
+                var vehicleToUpdate = MapToEntity(dto);
+
+                var updated = await _vehicleRepository.UpdateAsync(vehicleToUpdate);
+
+                return MapToDto(updated);
+            }
+            catch (Exception ex)
             {
-                throw new InvalidOperationException($"Ya existe otro vehículo con el número de serie {inputVehicle.SerialNumber}");
+                _logger.LogError(ex, "Error al actualizar vehículo {VehicleId}", dto.Id);
+                throw;
             }
-
-            // 3. Copia TODAS las propiedades de inputVehicle a existingVehicle
-            // (Esto es manual; si usas AutoMapper, reemplázalo con mapper.Map(inputVehicle, existingVehicle))
-            existingVehicle.Brand = inputVehicle.Brand;
-            existingVehicle.Model = inputVehicle.Model;
-            existingVehicle.Year = inputVehicle.Year;
-            existingVehicle.SerialNumber = inputVehicle.SerialNumber;
-            existingVehicle.LicensePlate = inputVehicle.LicensePlate;
-            existingVehicle.Color = inputVehicle.Color;
-            existingVehicle.Status = inputVehicle.Status;
-            existingVehicle.Location = inputVehicle.Location;
-            existingVehicle.PurchasePrice = inputVehicle.PurchasePrice;
-            existingVehicle.SalePrice = inputVehicle.SalePrice;
-            existingVehicle.Mileage = inputVehicle.Mileage;
-            existingVehicle.FuelType = inputVehicle.FuelType;
-            existingVehicle.Transmission = inputVehicle.Transmission;
-            existingVehicle.ImageUrl = inputVehicle.ImageUrl;
-            existingVehicle.Notes = inputVehicle.Notes;
-            existingVehicle.OwnerId = inputVehicle.OwnerId;
-            // Nota: No copies Owner, ya que es una navegación; se maneja en el DTO
-
-            // 4. Actualiza la entidad ya trackeada (EF la marca como Modified)
-            await _vehicleRepository.UpdateAsync(existingVehicle);
-
-            // 5. Retorna el DTO (ya está actualizado, no necesitas GetById extra)
-            return MapToDto(existingVehicle);
         }
 
-        // Eliminar vehículo
-        public async Task DeleteVehicleAsync(int id)
+        public async Task<bool> DeleteVehicleAsync(int id)
         {
-            var existing = await _vehicleRepository.GetByIdAsync(id);
-            if (existing == null)
+            try
             {
-                throw new InvalidOperationException($"No se encontró el vehículo con ID {id}");
-            }
+                var vehicle = await _vehicleRepository.GetByIdAsync(id);
+                if (vehicle == null) return false;
 
-            await _vehicleRepository.DeleteAsync(id);
+                _logger.LogInformation("Eliminando vehículo {VehicleId}", id);
+
+                return await _vehicleRepository.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar vehículo {VehicleId}", id);
+                throw;
+            }
         }
 
-        // Método privado para mapear Vehicle a VehicleDto (CON TODOS LOS CAMPOS)
         private static VehicleDto MapToDto(Vehicle vehicle)
         {
             return new VehicleDto
             {
                 Id = vehicle.Id,
-                Brand = vehicle.Brand,
-                Model = vehicle.Model,
-                Year = vehicle.Year,
+                BrandId = vehicle.BrandId,
+                BrandName = vehicle.Brand?.Name ?? string.Empty,
+                ModelId = vehicle.ModelId,
+                ModelName = vehicle.Model?.Name ?? string.Empty,
+                Year = vehicle.Year, // <--- Incluir todos los campos
                 SerialNumber = vehicle.SerialNumber,
                 LicensePlate = vehicle.LicensePlate,
                 Color = vehicle.Color,
-                Status = vehicle.Status,                     // ⚠️ FALTABA
-                Location = vehicle.Location,                 // ⚠️ FALTABA
-                PurchasePrice = vehicle.PurchasePrice,       // ⚠️ FALTABA
-                SalePrice = vehicle.SalePrice,               // ⚠️ FALTABA
-                Mileage = vehicle.Mileage,                   // ⚠️ FALTABA
-                FuelType = vehicle.FuelType,                 // ⚠️ FALTABA
-                Transmission = vehicle.Transmission,         // ⚠️ FALTABA
-                ImageUrl = vehicle.ImageUrl,                 // ⚠️ FALTABA
-                Notes = vehicle.Notes,                       // ⚠️ FALTABA
-                OwnerId = vehicle.OwnerId,                   // ⚠️ FALTABA
+                Status = vehicle.Status,
+                Location = vehicle.Location,
+                PurchasePrice = vehicle.PurchasePrice,
+                SalePrice = vehicle.SalePrice,
+                Mileage = vehicle.Mileage,
+                FuelType = vehicle.FuelType,
+                Transmission = vehicle.Transmission,
+
+                // Solo ImageUrl
+                ImageUrl = vehicle.ImageUrl,
+
+                Notes = vehicle.Notes,
+                OwnerId = vehicle.OwnerId,
                 OwnerName = vehicle.Owner?.FullName
             };
+        }
+
+
+        private static Vehicle MapToEntity(VehicleDto dto)
+        {
+            // NO MÁS LÓGICA DE BASE64. Asumimos que dto.ImageUrl es ahora la URL corta.
+
+            return new Vehicle
+            {
+                Id = dto.Id,
+                BrandId = dto.BrandId,
+                ModelId = dto.ModelId,
+                Year = dto.Year,
+                SerialNumber = dto.SerialNumber,
+                LicensePlate = dto.LicensePlate,
+                Color = dto.Color,
+                Status = dto.Status,
+                Location = dto.Location,
+                PurchasePrice = dto.PurchasePrice,
+                SalePrice = dto.SalePrice,
+                Mileage = dto.Mileage,
+                FuelType = dto.FuelType,
+                Transmission = dto.Transmission,
+
+                // ⭐️ CAMBIO CLAVE: SÓLO Mapear ImageUrl
+                ImageUrl = dto.ImageUrl,
+
+                // ELIMINAR CUALQUIER REFERENCIA A ImageBase64
+                Notes = dto.Notes,
+                OwnerId = dto.OwnerId
+            };
+        }
+
+        public async Task<List<Brand>> GetAllBrandsAsync()
+        {
+            return await _context.Brands.ToListAsync();
+        }
+
+        public async Task<List<Model>> GetModelsByBrandAsync(int brandId)
+        {
+            return await _context.Models
+                .Where(m => m.BrandId == brandId)
+                .ToListAsync();
         }
     }
 }

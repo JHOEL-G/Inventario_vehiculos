@@ -463,6 +463,73 @@
         }
       }
     },
+    "/api/Vehicles/brands": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vehicles/brands/{brandId}/models": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vehicles/upload-image": {
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -505,6 +572,31 @@
   },
   "components": {
     "schemas": {
+      "Brand": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Model"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Client": {
         "type": "object",
         "properties": {
@@ -648,6 +740,31 @@
         "type": "integer",
         "format": "int32"
       },
+      "Model": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string"
+          },
+          "brandId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/Brand"
+          }
+        },
+        "additionalProperties": false
+      },
       "TransmissionType": {
         "enum": [
           0,
@@ -660,8 +777,8 @@
       },
       "Vehicle": {
         "required": [
-          "brand",
-          "model",
+          "brandId",
+          "modelId",
           "serialNumber",
           "year"
         ],
@@ -671,15 +788,19 @@
             "type": "integer",
             "format": "int32"
           },
+          "brandId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "brand": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "$ref": "#/components/schemas/Brand"
+          },
+          "modelId": {
+            "type": "integer",
+            "format": "int32"
           },
           "model": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "$ref": "#/components/schemas/Model"
           },
           "year": {
             "maximum": 2100,
@@ -732,9 +853,7 @@
             "$ref": "#/components/schemas/TransmissionType"
           },
           "imageUrl": {
-            "maxLength": 500,
             "type": "string",
-            "format": "uri",
             "nullable": true
           },
           "notes": {
@@ -767,11 +886,19 @@
             "type": "integer",
             "format": "int32"
           },
-          "brand": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "brandName": {
             "type": "string",
             "nullable": true
           },
-          "model": {
+          "modelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modelName": {
             "type": "string",
             "nullable": true
           },

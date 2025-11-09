@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoManager.AutoManager_Domain.Entidades
 {
@@ -7,12 +8,13 @@ namespace AutoManager.AutoManager_Domain.Entidades
         public int Id { get; set; }
 
         [Required(ErrorMessage = "La marca es obligatoria.")]
-        [MaxLength(100)]
-        public string Brand { get; set; } = string.Empty;
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; } = null!;
 
         [Required(ErrorMessage = "El modelo es obligatorio.")]
-        [MaxLength(100)]
-        public string Model { get; set; } = string.Empty; // Quitado nullable
+        public int ModelId { get; set; }  // Quitado nullable
+        public Model Model { get; set; } = null!;
+
 
         [Required]
         [Range(1900, 2100, ErrorMessage = "El año debe estar entre 1900 y 2100.")]
@@ -46,8 +48,7 @@ namespace AutoManager.AutoManager_Domain.Entidades
 
         public TransmissionType Transmission { get; set; } = TransmissionType.Manual;
 
-        [MaxLength(500)]
-        [Url(ErrorMessage = "Debe ser una URL válida.")]
+        
         public string? ImageUrl { get; set; }
 
         [MaxLength(1000)]

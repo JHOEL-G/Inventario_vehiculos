@@ -23,14 +23,18 @@ namespace AutoManager.AutoManager_Infrastructure.Repositories
         {
             IQueryable<Vehicle> query = _context.Vehicles.Where(v => v.Id == id);
 
-            // Aplica includes dinámicos
+            // ⭐ Includes fijos por default (AGREGADO Brand y Model)
+            query = query
+                .Include(v => v.Brand)              // ← AGREGADO
+                .Include(v => v.Model)              // ← AGREGADO
+                .Include(v => v.Owner)
+                .Include(v => v.MaintenanceRecords);
+
+            // Aplica includes dinámicos adicionales
             foreach (var include in includes)
             {
                 query = query.Include(include);
             }
-
-            // Includes fijos por default
-            query = query.Include(v => v.Owner).Include(v => v.MaintenanceRecords);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -39,45 +43,87 @@ namespace AutoManager.AutoManager_Infrastructure.Repositories
         {
             IQueryable<Vehicle> query = _context.Vehicles;
 
-            // Aplica includes dinámicos
+            // ⭐ Includes fijos por default (AGREGADO Brand y Model)
+            query = query
+                .Include(v => v.Brand)              // ← AGREGADO
+                .Include(v => v.Model)              // ← AGREGADO
+                .Include(v => v.Owner)
+                .Include(v => v.MaintenanceRecords);
+
+            // Aplica includes dinámicos adicionales
             foreach (var include in includes)
             {
                 query = query.Include(include);
             }
 
-            // Includes fijos por default (Owner y MaintenanceRecords)
-            query = query.Include(v => v.Owner).Include(v => v.MaintenanceRecords);
-
             return await query.ToListAsync();
         }
 
-        // NUEVO: Método para buscar por SerialNumber (validación de duplicados)
         public async Task<Vehicle?> GetBySerialNumberAsync(string serialNumber)
         {
             return await _context.Vehicles
                 .FirstOrDefaultAsync(v => v.SerialNumber == serialNumber);
         }
 
-        public async Task AddAsync(Vehicle vehicle)
+        // ⭐ CORREGIDO: Ahora retorna Vehicle
+        public async Task<Vehicle> AddAsync(Vehicle vehicle)
         {
-            _context.Vehicles.Add(vehicle);
+            await _context.Vehicles.AddAsync(vehicle);
             await _context.SaveChangesAsync();
+
+            // Cargar relaciones después de guardar para retornar objeto completo
+            await _context.Entry(vehicle).Reference(v => v.Brand).LoadAsync();
+            await _context.Entry(vehicle).Reference(v => v.Model).LoadAsync();
+
+            if (vehicle.OwnerId.HasValue)
+            {
+                await _context.Entry(vehicle).Reference(v => v.Owner).LoadAsync();
+            }
+
+            return vehicle; // ← RETORNA el vehículo con ID y relaciones
         }
 
-        public async Task UpdateAsync(Vehicle vehicle)
+        // ⭐ CORREGIDO: Ahora retorna Vehicle
+        public async Task<Vehicle> UpdateAsync(Vehicle vehicle)
         {
-            _context.Vehicles.Update(vehicle);
+            // Buscar el vehículo existente
+            var existingVehicle = await _context.Vehicles.FindAsync(vehicle.Id);
+
+            if (existingVehicle == null)
+            {
+                throw new KeyNotFoundException($"Vehículo con ID {vehicle.Id} no encontrado");
+            }
+
+            // Actualizar las propiedades
+            _context.Entry(existingVehicle).CurrentValues.SetValues(vehicle);
             await _context.SaveChangesAsync();
+
+            // Cargar relaciones actualizadas
+            await _context.Entry(existingVehicle).Reference(v => v.Brand).LoadAsync();
+            await _context.Entry(existingVehicle).Reference(v => v.Model).LoadAsync();
+
+            if (existingVehicle.OwnerId.HasValue)
+            {
+                await _context.Entry(existingVehicle).Reference(v => v.Owner).LoadAsync();
+            }
+
+            return existingVehicle; // ← RETORNA el vehículo actualizado
         }
 
-        public async Task DeleteAsync(int id)
+        // ⭐ CORREGIDO: Ahora retorna bool
+        public async Task<bool> DeleteAsync(int id)
         {
             var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle != null)
+
+            if (vehicle == null)
             {
-                _context.Vehicles.Remove(vehicle);
-                await _context.SaveChangesAsync();
+                return false; // ← No se encontró, retorna false
             }
+
+            _context.Vehicles.Remove(vehicle);
+            await _context.SaveChangesAsync();
+
+            return true; // ← Se eliminó exitosamente, retorna true
         }
     }
 }

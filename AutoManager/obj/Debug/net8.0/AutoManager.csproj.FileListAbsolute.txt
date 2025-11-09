@@ -136,3 +136,4 @@ C:\fullstack\AutoManager\AutoManager\obj\Debug\net8.0\AutoManager.pdb
 C:\fullstack\AutoManager\AutoManager\obj\Debug\net8.0\AutoManager.genruntimeconfig.cache
 C:\fullstack\AutoManager\AutoManager\obj\Debug\net8.0\ref\AutoManager.dll
 C:\fullstack\AutoManager\AutoManager\obj\Debug\net8.0\AutoManager.sourcelink.json
+C:\fullstack\AutoManager\AutoManager\bin\Debug\net8.0\AutoManager.staticwebassets.runtime.json

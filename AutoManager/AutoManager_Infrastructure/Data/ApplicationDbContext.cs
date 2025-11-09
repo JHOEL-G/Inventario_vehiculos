@@ -9,14 +9,26 @@ namespace AutoManager.AutoManager_Infrastructure.Config
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Maintenance> MaintenanceRecords { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Brand>(entity =>
+            {
+                entity.HasMany(b => b.Models)
+                      .WithOne(m => m.Brand)
+                      .HasForeignKey(m => m.BrandId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<Vehicle>(entity =>
             {
                 entity.HasIndex(v => v.SerialNumber).IsUnique();

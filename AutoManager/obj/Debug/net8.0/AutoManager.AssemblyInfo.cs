@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03e24f0464302bdad72ccdbedb497e7d1046d57c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+493d202fc896a2bafcb5ebf1cce1c9b70f630256")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

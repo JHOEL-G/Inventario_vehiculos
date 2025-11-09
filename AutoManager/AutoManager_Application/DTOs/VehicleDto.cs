@@ -1,12 +1,17 @@
 ﻿using AutoManager.AutoManager_Domain.Entidades;
+using System.Text.Json.Serialization;
 
 namespace AutoManager.AutoManager_Application.DTOs
 {
     public class VehicleDto
     {
         public int Id { get; set; }
-        public string Brand { get; set; } = string.Empty;
-        public string Model { get; set; } = string.Empty;
+        public int BrandId { get; set; }
+        public string BrandName { get; set; } = string.Empty;
+
+        public int ModelId { get; set; }
+        public string ModelName { get; set; } = string.Empty;
+
         public int Year { get; set; }
         public string SerialNumber { get; set; } = string.Empty;
         public string? LicensePlate { get; set; }
