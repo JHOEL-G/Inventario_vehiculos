@@ -8,3 +8,4 @@ wwwroot\images\24add2ca-06c5-4939-b2ec-d1a5ce53166c.png
 wwwroot\images\bcaf540d-c0a8-41a0-b11f-0ddd24979348.png
 wwwroot\images\0a684b10-2d55-4cb0-9359-57a94e2849b1.avif
 wwwroot\images\f42bdaf7-d3f7-4b38-a10c-0b7ea44b89c3.avif
+wwwroot\images\355596d7-3dcd-4cbf-b2de-e5637091a56e.jpg
