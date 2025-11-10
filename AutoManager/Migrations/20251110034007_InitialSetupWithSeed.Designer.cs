@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251110023421_DBexterna")]
-    partial class DBexterna
+    [Migration("20251110034007_InitialSetupWithSeed")]
+    partial class InitialSetupWithSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

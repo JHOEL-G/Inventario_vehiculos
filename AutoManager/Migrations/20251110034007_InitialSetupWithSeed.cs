@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoManager.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialClean : Migration
+    public partial class InitialSetupWithSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,7 +85,6 @@ namespace AutoManager.Migrations
                     FuelType = table.Column<int>(type: "integer", nullable: false),
                     Transmission = table.Column<int>(type: "integer", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
-                    ImageBase64 = table.Column<string>(type: "text", nullable: true),
                     Notes = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     OwnerId = table.Column<int>(type: "integer", nullable: true)
                 },

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AutoManager_Infrastructure\Configurations\" />
     <Folder Include="AutoManager_Tests\" />
   </ItemGroup>
 
